@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黄仓库-仓储选品与库存周转观察</title>
+<meta name="description" content="黄仓库聚焦仓储选品、库存周转与仓配协同。整理2026年10月华南现货仓的周转数据、SKU分层、退货处理与入库检验要点，附黄仓库榜单、体验指南与常见问题解答。">
+<meta name="keywords" content="黄仓库">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23b8860b'/%3E%3Cpath d='M12 24h40v8H12zM16 34h8v18h-8zM28 34h8v18h-8zM40 34h8v18h-8z' fill='%23fff8e7'/%3E%3C/svg%3E">
+<style>
+:root{
+--c-main:#b8860b;
+--c-main-d:#8a6508;
+--c-main-l:#f5e9c8;
+--c-ink:#20201c;
+--c-ink-2:#4a4a42;
+--c-ink-3:#7a7a70;
+--c-bg:#faf8f3;
+--c-card:#ffffff;
+--c-line:#e2ddcf;
+--c-accent:#3f6152;
+--c-accent-l:#e6efe9;
+--c-warn:#9c3d2e;
+--c-warn-l:#f7e7e3;
+--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;
+--r-1:6px;--r-2:10px;--r-3:16px;
+--sh-1:0 1px 2px rgba(32,32,28,.06),0 2px 8px rgba(32,32,28,.05);
+--sh-2:0 4px 18px rgba(32,32,28,.09);
+--ff:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+--fs-h1:clamp(28px,4.4vw,44px);
+--fs-h2:clamp(21px,2.6vw,27px);
+--fs-h3:17px;
+--fs-body:16px;
+--fs-sm:14px;
+--fs-xs:12.5px;
+--lh:1.78;
+--sticky-h:118px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--sticky-h)}
+body{margin:0;font-family:var(--ff);font-size:var(--fs-body);line-height:var(--lh);color:var(--c-ink);background:var(--c-bg);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--c-main-d);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700}
+p{margin:0 0 var(--sp-3)}
+ul,ol{margin:0 0 var(--sp-3);padding-left:1.25em}
+li{margin:0 0 var(--sp-1)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 var(--sp-4)}
+.skip{position:absolute;left:-9999px;top:0;background:var(--c-main);color:#fff;padding:8px 14px;z-index:200}
+.skip:focus{left:8px;top:8px}
+:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px;border-radius:4px}
+
+/* 吸顶区 */
+.sticky-zone{position:sticky;top:0;z-index:100}
+.notice{background:var(--c-ink);color:#f0ead9;font-size:var(--fs-sm)}
+.notice .wrap{display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap;padding-top:7px;padding-bottom:7px}
+.notice b{color:#f2cf6b;font-weight:700}
+.notice .tag{background:var(--c-main);color:#fff;border-radius:var(--r-1);padding:1px 7px;font-size:var(--fs-xs);font-weight:700;letter-spacing:.04em}
+.notice a{color:#f2cf6b}
+.header{background:rgba(250,248,243,.96);backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--c-line);box-shadow:var(--sh-1)}
+.header .wrap{display:flex;align-items:center;gap:var(--sp-4);padding-top:10px;padding-bottom:10px}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand svg{width:38px;height:38px;flex:none}
+.brand-txt{display:flex;flex-direction:column;line-height:1.2}
+.brand-txt strong{font-size:19px;letter-spacing:.06em;color:var(--c-ink)}
+.brand-txt span{font-size:11px;color:var(--c-ink-3);letter-spacing:.12em}
+.nav-main{margin-left:auto;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.nav-main a{font-size:var(--fs-sm);color:var(--c-ink-2);padding:7px 10px;border-radius:var(--r-1);white-space:nowrap}
+.nav-main a:hover{background:var(--c-main-l);color:var(--c-main-d);text-decoration:none}
+.menu-btn{display:none;margin-left:auto;align-items:center;gap:7px;border:1px solid var(--c-line);background:var(--c-card);color:var(--c-ink);padding:8px 12px;border-radius:var(--r-1);font-size:var(--fs-sm);font-family:inherit;cursor:pointer}
+.menu-btn svg{width:16px;height:16px}
+.header-tools{display:flex;align-items:center;gap:var(--sp-2);flex:none}
+.search-box{position:relative}
+.search-box input{width:172px;border:1px solid var(--c-line);background:var(--c-card);border-radius:var(--r-2);padding:8px 12px;font-size:var(--fs-sm);font-family:inherit;color:var(--c-ink)}
+.search-box input:focus{border-color:var(--c-main);outline:none;box-shadow:0 0 0 3px var(--c-main-l)}
+.search-feedback{position:absolute;top:calc(100% + 6px);right:0;width:280px;background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-2);box-shadow:var(--sh-2);padding:10px 12px;font-size:var(--fs-xs);color:var(--c-ink-2);display:none;z-index:120}
+.search-feedback.on{display:block}
+.search-feedback ul{padding-left:1.1em;margin:6px 0 0}
+.search-feedback li a{color:var(--c-main-d)}
+
+/* 首屏 */
+.hero{position:relative;overflow:hidden;background:linear-gradient(165deg,#f8f1dd 0%,#fdfbf5 46%,#f2f5f1 100%);border-bottom:1px solid var(--c-line)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:var(--sp-6);align-items:center;padding-top:var(--sp-7);padding-bottom:var(--sp-7)}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-xs);letter-spacing:.16em;color:var(--c-main-d);background:#fff;border:1px solid var(--c-main-l);padding:5px 12px;border-radius:999px;margin-bottom:var(--sp-4)}
+.hero-kicker i{width:6px;height:6px;border-radius:50%;background:var(--c-main);display:inline-block}
+.hero h1{font-size:var(--fs-h1);letter-spacing:.03em;margin-bottom:var(--sp-3)}
+.hero-desc{font-size:16.5px;color:var(--c-ink-2);max-width:36em;margin-bottom:var(--sp-5)}
+.hero-desc b{color:var(--c-ink);font-weight:600}
+.hero-actions{display:flex;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-5)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:var(--r-2);font-size:15px;font-weight:600;border:1px solid transparent;transition:transform .18s ease,background .18s ease;cursor:pointer;font-family:inherit}
+.btn:hover{text-decoration:none;transform:translateY(-2px)}
+.btn-primary{background:var(--c-main);color:#fff;box-shadow:var(--sh-1)}
+.btn-primary:hover{background:var(--c-main-d)}
+.btn-ghost{background:#fff;color:var(--c-ink);border-color:var(--c-line)}
+.btn-ghost:hover{border-color:var(--c-main)}
+.hero-stats{display:flex;gap:var(--sp-5);flex-wrap:wrap;border-top:1px dashed var(--c-line);padding-top:var(--sp-4)}
+.hero-stats div{min-width:96px}
+.hero-stats b{display:block;font-size:23px;color:var(--c-main-d);letter-spacing:.02em}
+.hero-stats span{font-size:var(--fs-xs);color:var(--c-ink-3)}
+.hero-art{position:relative;aspect-ratio:1/0.92}
+.hero-art svg{width:100%;height:100%}
+.hero-note{position:absolute;right:6px;bottom:2px;background:#fff;border:1px solid var(--c-line);border-radius:var(--r-2);box-shadow:var(--sh-1);padding:8px 12px;font-size:var(--fs-xs);color:var(--c-ink-2);max-width:180px}
+
+/* 布局 */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 306px;gap:var(--sp-6);align-items:start;padding-top:var(--sp-6);padding-bottom:var(--sp-7)}
+.content{min-width:0;display:flex;flex-direction:column;gap:var(--sp-6)}
+aside.side{position:sticky;top:calc(var(--sticky-h) + 8px);display:flex;flex-direction:column;gap:var(--sp-4)}
+.sec{background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-3);padding:var(--sp-5);box-shadow:var(--sh-1);scroll-margin-top:var(--sticky-h)}
+.sec-head{display:flex;align-items:baseline;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-4)}
+.sec-head h2{font-size:var(--fs-h2);letter-spacing:.01em}
+.sec-head .sub{font-size:var(--fs-sm);color:var(--c-ink-3)}
+.sec-head .more{margin-left:auto;font-size:var(--fs-sm);color:var(--c-main-d)}
+.sec-lead{color:var(--c-ink-2);font-size:15px;margin-bottom:var(--sp-4)}
+.muted{color:var(--c-ink-3)}
+.hl{background:linear-gradient(transparent 62%,#f6e6b6 62%)}
+
+/* 概览 grid */
+.overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3)}
+.ov-card{border:1px solid var(--c-line);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);background:#fdfcf8}
+.ov-card h3{font-size:15px;margin-bottom:4px}
+.ov-card p{font-size:var(--fs-sm);color:var(--c-ink-2);margin:0}
+.ov-card b{color:var(--c-main-d)}
+
+/* 精选卡片 */
+.pick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-4)}
+.pick-card{border:1px solid var(--c-line);border-radius:var(--r-2);overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.pick-card img{width:100%;height:118px;object-fit:cover}
+.pick-card .body{padding:var(--sp-3) var(--sp-4) var(--sp-4);display:flex;flex-direction:column;gap:6px;flex:1}
+.pick-card h3{font-size:15.5px}
+.pick-card p{font-size:var(--fs-sm);color:var(--c-ink-2);margin:0;flex:1}
+.chip{display:inline-block;font-size:11.5px;color:var(--c-accent);background:var(--c-accent-l);border-radius:999px;padding:2px 9px;letter-spacing:.03em}
+.pick-card .meta{font-size:var(--fs-xs);color:var(--c-ink-3);display:flex;gap:10px;flex-wrap:wrap}
+
+/* 最新更新 列表 */
+.updates{display:flex;flex-direction:column;gap:0}
+.up-item{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:var(--sp-4);padding:var(--sp-3) 0;border-bottom:1px dashed var(--c-line);align-items:baseline}
+.up-item:last-child{border-bottom:0}
+.up-date{font-size:var(--fs-xs);color:var(--c-main-d);font-weight:600;letter-spacing:.02em}
+.up-item h3{font-size:15.5px;margin-bottom:2px}
+.up-item p{font-size:var(--fs-sm);color:var(--c-ink-2);margin:0}
+.up-src{font-size:var(--fs-xs);color:var(--c-ink-3);white-space:nowrap}
+
+/* 分类入口 标签索引 */
+.tagindex{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.tagindex a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--c-line);background:#fdfcf8;border-radius:999px;padding:7px 14px;font-size:var(--fs-sm);color:var(--c-ink-2)}
+.tagindex a:hover{border-color:var(--c-main);color:var(--c-main-d);text-decoration:none;background:var(--c-main-l)}
+.tagindex em{font-style:normal;font-size:var(--fs-xs);color:var(--c-ink-3)}
+
+/* 深度解析 */
+.deep{border-left:4px solid var(--c-main)}
+.deep h3{font-size:var(--c-main-d);margin:var(--sp-5) 0 var(--sp-2);font-size:16.5px}
+.deep h3:first-of-type{margin-top:0}
+.deep p{font-size:15.5px}
+.deep .callout{background:#fdf8e8;border:1px solid #eadfb9;border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);font-size:var(--fs-sm);margin:var(--sp-3) 0}
+.deep table{width:100%;border-collapse:collapse;font-size:var(--fs-sm);margin:var(--sp-3) 0 var(--sp-4)}
+.deep th,.deep td{border:1px solid var(--c-line);padding:8px 10px;text-align:left;vertical-align:top}
+.deep th{background:#f6f2e6;font-weight:600;white-space:nowrap}
+.deep .verdict{background:var(--c-warn-l);border-left:3px solid var(--c-warn);padding:var(--sp-3) var(--sp-4);border-radius:0 var(--r-2) var(--r-2) 0;font-size:var(--fs-sm)}
+.deep ul{padding-left:1.2em}
+
+/* 体验指南 编号步骤 */
+.steps{counter-reset:step;list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:var(--sp-3)}
+.steps li{counter-increment:step;display:grid;grid-template-columns:38px minmax(0,1fr);gap:var(--sp-3);align-items:start}
+.steps li::before{content:counter(step);grid-row:1/span 2;width:34px;height:34px;border-radius:50%;background:var(--c-main);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px}
+.steps b{display:block;font-size:15.5px}
+.steps span{font-size:var(--fs-sm);color:var(--c-ink-2)}
+
+/* FAQ */
+.faq details{border:1px solid var(--c-line);border-radius:var(--r-2);margin-bottom:var(--sp-2);background:#fdfcf8;overflow:hidden}
+.faq summary{cursor:pointer;padding:11px var(--sp-4);font-size:15.5px;font-weight:600;list-style:none;display:flex;gap:10px;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:19px;color:var(--c-main);line-height:1;flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq details[open] summary{background:var(--c-main-l)}
+.faq .ans{padding:2px var(--sp-4) var(--sp-4);font-size:var(--fs-sm);color:var(--c-ink-2)}
+
+/* 评论 */
+.cmts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3)}
+.cmt{border:1px solid var(--c-line);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);background:#fff}
+.cmt header{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:var(--fs-xs);color:var(--c-ink-3)}
+.cmt .avatar{width:26px;height:26px;border-radius:50%;background:var(--c-main-l);color:var(--c-main-d);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex:none}
+.cmt p{font-size:var(--fs-sm);margin:0;color:var(--c-ink-2)}
+.cmt .ref{display:block;margin-top:6px;font-size:var(--fs-xs);color:var(--c-accent)}
+.cmt.warn{border-color:#e7c9c1;background:#fdf7f5}
+
+/* 相关资讯 紧凑列表 */
+.news-list{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none}
+.news-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--sp-3);padding:10px 0;border-bottom:1px dashed var(--c-line);align-items:baseline}
+.news-list li:last-child{border-bottom:0}
+.news-list a{font-size:15px}
+.news-list span{font-size:var(--fs-xs);color:var(--c-ink-3);white-space:nowrap}
+
+/* 相关推荐 */
+.recs{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+.recs a{font-size:var(--fs-sm);border:1px solid var(--c-line);border-radius:var(--r-1);padding:6px 12px;background:#fff;color:var(--c-ink-2)}
+.recs a:hover{border-color:var(--c-main);color:var(--c-main-d);background:var(--c-main-l);text-decoration:none}
+
+/* 榜单 对照 */
+.rank{display:flex;flex-direction:column;gap:0;counter-reset:r}
+.rank .row{display:grid;grid-template-columns:30px minmax(0,1.4fr) minmax(0,1fr) auto;gap:var(--sp-3);align-items:center;padding:10px 0;border-bottom:1px dashed var(--c-line);font-size:var(--fs-sm)}
+.rank .row:last-child{border-bottom:0}
+.rank .no{font-weight:700;color:var(--c-main-d);font-size:15px}
+.rank .name b{display:block;font-size:15px;color:var(--c-ink)}
+.rank .name span{font-size:var(--fs-xs);color:var(--c-ink-3)}
+.rank .bar{height:7px;border-radius:99px;background:#eee7d4;overflow:hidden}
+.rank .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--c-main),#d9ab2f)}
+.rank .val{font-size:var(--fs-xs);color:var(--c-ink-2);white-space:nowrap}
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
+.compare .panel{border:1px solid var(--c-line);border-radius:var(--r-2);padding:var(--sp-3) var(--sp-4);font-size:var(--fs-sm)}
+.compare .panel h4{font-size:14px;margin-bottom:6px}
+.compare .panel.a{background:var(--c-accent-l);border-color:#cfe0d5}
+.compare .panel.b{background:var(--c-warn-l);border-color:#e7c9c1}
+.compare ul{margin:0;padding-left:1.1em}
+.timeline{list-style:none;margin:var(--sp-4) 0 0;padding:0 0 0 18px;border-left:2px solid var(--c-main-l)}
+.timeline li{position:relative;padding:0 0 var(--sp-4) var(--sp-3);font-size:var(--fs-sm)}
+.timeline li::before{content:"";position:absolute;left:-25px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--c-main);border:2px solid #fff;box-shadow:0 0 0 1px var(--c-main)}
+.timeline li:last-child{padding-bottom:0}
+.timeline b{display:block;font-size:14.5px;color:var(--c-ink);margin-bottom:2px}
+.timeline span{color:var(--c-ink-3);font-size:var(--fs-xs);margin-right:8px}
+
+/* 侧栏 */
+.side-card{background:var(--c-card);border:1px solid var(--c-line);border-radius:var(--r-3);padding:var(--sp-4);box-shadow:var(--sh-1)}
+.side-card h3{font-size:15px;margin-bottom:var(--sp-3);display:flex;align-items:center;gap:8px}
+.side-card h3::before{content:"";width:4px;height:15px;background:var(--c-main);border-radius:2px}
+.side-nav{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.side-nav a{display:block;font-size:var(--fs-sm);color:var(--c-ink-2);padding:6px 10px;border-radius:var(--r-1);border-left:2px solid transparent}
+.side-nav a:hover{background:var(--c-main-l);text-decoration:none}
+.side-nav a.active{background:var(--c-main-l);color:var(--c-main-d);font-weight:600;border-left-color:var(--c-main)}
+.side-list{list-style:none;margin:0;padding:0}
+.side-list li{padding:8px 0;border-bottom:1px dashed var(--c-line);font-size:var(--fs-sm);display:flex;gap:10px;justify-content:space-between}
+.side-list li:last-child{border-bottom:0}
+.side-list a{color:var(--c-ink-2)}
+.side-list em{font-style:normal;color:var(--c-ink-3);font-size:var(--fs-xs);white-space:nowrap}
+.side-data{font-size:var(--fs-xs);color:var(--c-ink-3);margin-top:var(--sp-2)}
+.notice-mini{background:#fff8e1;border:1px solid #ecdcae;border-radius:var(--r-2);padding:10px 12px;font-size:var(--fs-xs);color:#6b5518;line-height:1.7}
+
+/* 页脚 */
+.footer{background:#22211d;color:#cfcabc;border-top:4px solid var(--c-main);margin-top:var(--sp-6)}
+.footer .wrap{padding-top:var(--sp-6);padding-bottom:var(--sp-5)}
+.foot-top{display:grid;grid-template-columns:minmax(0,1.2fr) repeat(3,minmax(0,1fr));gap:var(--sp-5)}
+.foot-brand{display:flex;align-items:center;gap:10px;margin-bottom:var(--sp-3)}
+.foot-brand svg{width:34px;height:34px}
+.foot-brand strong{font-size:18px;color:#fff;letter-spacing:.06em}
+.foot-brand span{font-size:10.5px;color:#8e897b;letter-spacing:.12em;display:block}
+.foot-pos{font-size:var(--fs-sm);color:#a9a495;max-width:30em}
+.foot-col h4{font-size:var(--fs-sm);color:#f2cf6b;margin-bottom:var(--sp-2);letter-spacing:.04em}
+.foot-col ul{list-style:none;margin:0;padding:0}
+.foot-col li{margin-bottom:5px}
+.foot-col a{font-size:var(--fs-sm);color:#bdb8a9}
+.foot-col a:hover{color:#f2cf6b;text-decoration:none}
+.foot-bottom{border-top:1px solid #3a3831;margin-top:var(--sp-5);padding-top:var(--sp-4);display:flex;gap:var(--sp-4);flex-wrap:wrap;justify-content:space-between;font-size:var(--fs-xs);color:#8e897b}
+.foot-bottom .sample{max-width:62ch;line-height:1.7}
+
+/* 回到顶部 */
+.to-top{position:fixed;right:18px;bottom:22px;width:44px;height:44px;border-radius:50%;background:var(--c-main);color:#fff;border:0;display:none;align-items:center;justify-content:center;box-shadow:var(--sh-2);cursor:pointer;z-index:90}
+.to-top.on{display:flex}
+.to-top svg{width:19px;height:19px}
+.to-top:hover{background:var(--c-main-d)}
+
+/* 响应 */
+@media (max-width:1000px){
+.layout{grid-template-columns:minmax(0,1fr)}
+aside.side{position:static;flex-direction:row;flex-wrap:wrap;margin-top:var(--sp-2)}
+aside.side>*{flex:1 1 260px}
+.pick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.hero .wrap{grid-template-columns:minmax(0,1fr);gap:var(--sp-5)}
+.hero-art{max-width:420px;order:-1;aspect-ratio:16/9}
+.foot-top{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:760px){
+:root{--sticky-h:112px}
+.header .wrap{flex-wrap:wrap;gap:var(--sp-2)}
+.nav-main{display:none;order:4;width:100%;flex-direction:column;align-items:stretch;background:#fff;border:1px solid var(--c-line);border-radius:var(--r-2);padding:6px;box-shadow:var(--sh-2)}
+.nav-main.open{display:flex}
+.nav-main a{padding:9px 12px}
+.menu-btn{display:inline-flex}
+.search-box input{width:132px}
+.sec{padding:var(--sp-4)}
+.overview-grid,.pick-grid,.cmts,.compare{grid-template-columns:minmax(0,1fr)}
+.up-item{grid-template-columns:minmax(0,1fr);gap:2px}
+.up-src{white-space:normal}
+.rank .row{grid-template-columns:24px minmax(0,1fr) auto;gap:8px}
+.rank .bar{display:none}
+.hero-stats g
+.hero-stats{gap:var(--sp-4)}
+.foot-top{grid-template-columns:minmax(0,1fr)}
+.hero .wrap{padding-top:var(--sp-5);padding-bottom:var(--sp-5)}
+.to-top{right:12px;bottom:14px;width:42px;height:42px}
+.search-feedback{right:auto;left:0;width:min(280px,calc(100vw - 40px))}
+}
+@media (max-width:400px){
+.hero h1{font-size:25px}
+.brand-txt strong{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+*{transition:none!important;animation:none!important}
+.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要内容</a>
+
+<div class="sticky-zone">
+  <div class="notice" role="status" aria-label="站内更新">
+    <div class="wrap">
+      <span class="tag">公告</span>
+      <span>10月27日更新 <b>黄仓库</b> 华南三家现货仓的 SKU 分层表，新增 12 个滞销标记；11月2日补录 9 月退货明细 48 条。</span>
+      <a href="/#updates">查看更新记录</a>
+    </div>
+  </div>
+  <header class="header">
+    <div class="wrap">
+      <a class="brand" href="/#top" aria-label="黄仓库 首页">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+          <rect width="64" height="64" rx="12" fill="#b8860b"/>
+          <path d="M14 22h36v7H14z" fill="#fff8e7"/>
+          <path d="M18 32h8v18h-8zM28 32h8v18h-8zM38 32h8v18h-8z" fill="#ffe9a8"/>
+          <path d="M18 32h8v4h-8zM28 32h8v4h-8zM38 32h8v4h-8z" fill="#8a6508" opacity=".55"/>
+        </svg>
+        <span class="brand-txt">
+          <strong>黄仓库</strong>
+          <span>仓储周转观察</span>
+        </span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        栏目
+      </button>
+      <nav class="nav-main" id="mainNav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选内容</a>
+        <a href="/#updates">最新更新</a>
+        <a href="/#channels">分类入口</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#ranking">周转榜单</a>
+        <a href="/#faq">常见问题</a>
+      </nav>
+      <div class="header-tools">
+        <div class="search-box">
+          <input type="search" id="siteSearch" placeholder="搜索 SKU、仓号、条目" aria-label="站内搜索" autocomplete="off">
+          <div class="search-feedback" id="searchFeedback" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="hero-kicker"><i></i>2026 年 11 月 8 日 · 华南现货仓观察</span>
+      <h1>黄仓库</h1>
+      <p class="hero-desc">把仓储选品摊开讲：哪些 SKU 该补、哪些该清、周转天数怎么算。样本来自广州白云、东莞厚街、佛山南海三处现货仓的 <b>1,860 个SKU</b>，周转数据截至 10 月 31 日。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#deep">读周转分层判断</a>
+        <a class="btn btn-ghost" href="/#ranking">看滞销榜前 10</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>1,860</b><span>在册 SKU 数</span></div>
+        <div><b>41.6</b><span>平均周转天数</span></div>
+        <div><b>48</b><span>9 月退货明细</span></div>
+        <div><b>12</b><span>新增滞销标记</span></div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 420 386" role="img" focusable="false">
+        <defs>
+          <linearGradient id="shelf" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f3e3b4"/><stop offset="1" stop-color="#e6cf94"/>
+          </linearGradient>
+          <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fbf5e2"/><stop offset="1" stop-color="#eef3ee"/>
+          </linearGradient>
+        </defs>
+        <rect x="4" y="4" width="412" height="378" rx="26" fill="url(#sky)" stroke="#e2ddcf"/>
+        <g opacity=".55" stroke="#d8cfb6" stroke-width="1">
+          <path d="M40 76h340M40 146h340M40 216h340M40 286h340"/>
+        </g>
+        <g fill="url(#shelf)" stroke="#c9a95c" stroke-width="1.4">
+          <rect x="52" y="88" width="58" height="52" rx="5"/>
+          <rect x="122" y="88" width="58" height="52" rx="5"/>
+          <rect x="192" y="88" width="58" height="52" rx="5"/>
+          <rect x="262" y="88" width="58" height="52" rx="5"/>
+          <rect x="52" y="158" width="88" height="52" rx="5"/>
+          <rect x="152" y="158" width="58" height="52" rx="5"/>
+          <rect x="222" y="158" width="98" height="52" rx="5"/>
+        </g>
+        <g fill="#fffaf0" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="11" font-weight="600" text-anchor="middle">
+          <text x="81" y="118" fill="#8a6508">A-12</text>
+          <text x="151" y="118" fill="#8a6508">A-13</text>
+          <text x="221" y="118" fill="#8a6508">B-04</text>
+          <text x="291" y="118" fill="#8a6508">B-05</text>
+          <text x="96" y="188" fill="#8a6508">C-21</text>
+          <text x="181" y="188" fill="#8a6508">D-08</text>
+          <text x="271" y="188" fill="#8a6508">E-15</text>
+        </g>
+        <g fill="#b8860b" opacity=".9">
+          <rect x="52" y="234" width="150" height="14" rx="7"/>
+        </g>
+        <g fill="#3f6152" opacity=".85">
+          <rect x="212" y="234" width="118" height="14" rx="7"/>
+        </g>
+        <text x="52" y="272" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#7a7a70">周转 30 天内</text>
+        <text x="212" y="272" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="11.5" fill="#7a7a70">积压 60 天以上</text>
+        <g stroke="#c9a95c" stroke-width="2" fill="#fff">
+          <circle cx="86" cy="318" r="15"/>
+          <circle cx="150" cy="318" r="15"/>
+          <circle cx="214" cy="318" r="15"/>
+          <circle cx="278" cy="318" r="15"/>
+        </g>
+        <g font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="10" text-anchor="middle" fill="#6b5518">
+          <text x="86" y="322">入</text><text x="150" y="322">检</text><text x="214" y="322">拣</text><text x="278" y="322">发</text>
+        </g>
+        <path d="M30 20h120" stroke="#b8860b" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <div class="hero-note">SVG 仓储示意：不同颜色对应 30 天内与 60 天以上两个周转区间</div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap layout">
+  <div class="content">
+
+    <!-- 1 领域概览 -->
+    <section class="sec" id="overview" aria-labelledby="h-overview">
+      <div class="sec-head">
+        <h2 id="h-overview">领域概览：现货仓的货怎么转起来</h2>
+        <span class="sub">三仓口径统一后第一次并表</span>
+      </div>
+      <p class="sec-lead">仓储选品的核心不在进货价，而在货从入库到出库之间的停留天数。白云 J-01 仓、厚街 J-02 仓、南海 J-03 仓自 10 月 1 日起统一 SKU 编码，才有这张并表。四条口径先讲清楚，后文所有数字都从这四条来。</p>
+      <div class="overview-grid">
+        <div class="ov-card">
+          <h3>周转天数计算口径</h3>
+          <p>按 <b>出库单签收日 − 入库单上架日</b> 取中位数，剔除质检冻结超过 5 天的批次。</p>
+        </div>
+        <div class="ov-card">
+          <h3>SKU 分层方法</h3>
+          <p>S 层：30 天内出清八成；A 层：45 天；B 层：60 天；C 层超 60 天进入滞销队列。三仓共 <b>1,860 个SKU</b>。</p>
+        </div>
+        <div class="ov-card">
+          <h3>退货入池规则</h3>
+          <p>外观无损的退货回到可售区，需 <b>二次质检签章</b>；标签磨损或封口破损一律转待处理区。</p>
+        </div>
+        <div class="ov-card">
+          <h3>仓配协同节奏</h3>
+          <p>每天 14:00 截单，18:20 前完成干线装车；南海 J-03 仓周三加开一班夜车。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 精选内容 -->
+    <section class="sec" id="picks" aria-labelledby="h-picks">
+      <div class="sec-head">
+        <h2 id="h-picks">精选内容推荐</h2>
+        <span class="sub">按核对工作量筛选过一轮</span>
+        <a class="more" href="/#updates">跟进更新 →</a>
+      </div>
+      <div class="pick-grid">
+        <article class="pick-card">
+          <img src="https://picsum.photos/seed/huangcangku-inbound/560/240" width="560" height="240" loading="lazy" alt="仓库入库区成排纸箱与检验标识牌">
+          <div class="body">
+            <span class="chip">入库检验</span>
+            <h3>入库抽检比例从 10% 调到 20% 的一个月</h3>
+            <p>10 月 3 日厚街 J-02 仓把抽检比例翻倍，当月拦截 7 批次标签错印，代价是卸车时长多 22 分钟。</p>
+            <div class="meta"><span>10月3日</span><span>J-02 仓</span></div>
+          </div>
+        </article>
+        <article class="pick-card">
+          <img src="https://picsum.photos/seed/huangcangku-sku-layer/560/240" width="560" height="240" loading="lazy" alt="货架上分层标识牌与 SKU 编码贴纸">
+          <div class="body">
+            <span class="chip">SKU 分层</span>
+            <h3>把 C 层 SKU 从 214 个砍到 96 个</h3>
+            <p>白云 J-01 仓 10 月 12 日的分层表显示，C 层压着 38% 的库容却只贡献 6% 出库单量。</p>
+            <div class="meta"><span>10月12日</span><span>J-01 仓</span></div>
+          </div>
+        </article>
+        <article class="pick-card">
+          <img src="https://picsum.photos/seed/huangcangku-return/560/240" width="560" height="240" loading="lazy" alt="退货处理区的待检纸箱与封口标签">
+          <div class="body">
+            <span class="chip">退货处理</span>
+            <h3>9 月退货明细 48 条里的三种差错</h3>
+            <p>标签磨损 19 条、封口破损 14 条、外观无损 15 条。前两类按规则转待处理区，不进可售池。</p>
+            <div class="meta"><span>11月2日补录</span><span>三仓合计</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3 最新更新 -->
+    <section class="sec" id="updates" aria-labelledby="h-updates">
+      <div class="sec-head">
+        <h2 id="h-updates">最新更新</h2>
+        <span class="sub">日期按仓内单据登记</span>
+      </div>
+      <div class="updates">
+        <div class="up-item">
+          <span class="up-date">11月6日</span>
+          <div><h3>南海 J-03 仓夜车线路调整为周三、周五两班</h3><p>原周三单班改为双班，佛山至深圳龙岗的到仓时间由次日 09:40 提前到 06:10。</p></div>
+          <span class="up-src">调度台账 11-06</span>
+        </div>
+        <div class="up-item">
+          <span class="up-date">11月2日</span>
+          <div><h3>补录 9 月退货明细 48 条</h3><p>涉及 J-01 仓 21 条、J-02 仓 16 条、J-03 仓 11 条，二次质检签章缺失 3 条已单独挂起。</p></div>
+          <span class="up-src">退货单 9 月批次</span>
+        </div>
+        <div class="up-item">
+          <span class="up-date">10月27日</span>
+          <div><h3>华南现货仓 SKU 分层表更新至 v3.2</h3><p>新增 12 个滞销标记，撤销 4 个误标；C 层数量从 104 降至 96。</p></div>
+          <span class="up-src">分层表 v3.2</span>
+        </div>
+        <div class="up-item">
+          <span class="up-date">10月18日</span>
+          <div><h3>白云 J-01 仓货位由四区改为五区</h3><p>C 区拆为 C 区与 D 区，拣货路径平均缩短 17 秒；旧货位编码表保留至 12 月 31 日。</p></div>
+          <span class="up-src">货位调整单</span>
+        </div>
+        <div class="up-item">
+          <span class="up-date">10月9日</span>
+          <div><h3>厚街 J-02 仓温控区扩容 180 平方米</h3><p>2—8℃ 温控位由 46 个增至 62 个，原占用临时货位的 3 个批次已迁入。</p></div>
+          <span class="up-src">设备验收记录</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 分类入口 -->
+    <section class="sec" id="channels" aria-labelledby="h-channels">
+      <div class="sec-head">
+        <h2 id="h-channels">分类入口</h2>
+        <span class="sub">按检索习惯归的 10 类</span>
+      </div>
+      <p class="sec-lead">底下每类都挂着真实条目数。点进去看到的是同一批 SKU 的不同切面，不是重新编过的内容。</p>
+      <div class="tagindex">
+        <a href="/#deep">库存周转天数怎么算 <em>14 条</em></a>
+        <a href="/#ranking">滞销 SKU 清仓顺序 <em>96 条</em></a>
+        <a href="/#picks">入库抽检比例设置 <em>9 条</em></a>
+        <a href="/#updates">退货二次质检流程 <em>48 条</em></a>
+        <a href="/#guide">货位编码与拣货路径 <em>21 条</em></a>
+        <a href="/#deep">SKU 分层 ABC 法 <em>11 条</em></a>
+        <a href="/#ranking">现货仓与前置仓区别 <em>7 条</em></a>
+        <a href="/#faq">温控区容量测算 <em>5 条</em></a>
+        <a href="/#updates">仓配截单时间管理 <em>13 条</em></a>
+        <a href="/#faq">盘点差异追溯步骤 <em>16 条</em></a>
+      </div>
+    </section>
+
+    <!-- 5 深度解析 -->
+    <section class="sec deep" id="deep" aria-labelledby="h-deep">
+      <div class="sec-head">
+        <h2 id="h-deep">深度解析：周转天数不是越短越好</h2>
+      </div>
+      <p>一个判断先放在这里：把平均周转天数压到 30 天以内的现货仓，往往在补货频次上多付了钱，单 SKU 的实际毛利未必高于 40 天左右的仓。白云 J-01 仓 10 月的两组数据可以直接对照。</p>
+
+      <h3>判断一：压低周转天数的代价常落在补货批次上</h3>
+      <p>J-01 仓 10 月 1 日至 10 月 31 日的数据里，S 层 SKU 平均周转 <b>21.4 天</b>，每月补货 <b>3.2 批</b>；A 层 SKU 平均周转 <b>38.7 天</b>，每月补货 <b>1.6 批</b>。单批补货的固定成本按仓内装卸与验收工时折算约 0.85 元/件，S 层因此多出 <b>1.36 元/件</b>的批次成本。对单价 12 元上下的日化小件，这个差额已经吃掉毛利的十分之一。</p>
+      <table>
+        <caption class="muted" style="caption-side:bottom;font-size:12.5px;text-align:left;padding-top:6px">数据来源：J-01 仓 10 月入库单与出库单并表，2026-10-01 至 2026-10-31</caption>
+        <thead>
+          <tr><th>分层</th><th>SKU 数</th><th>平均周转</th><th>月补货批次</th><th>批次成本/件</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>S 层</td><td>412</td><td>21.4 天</td><td>3.2</td><td>2.72 元</td></tr>
+          <tr><td>A 层</td><td>698</td><td>38.7 天</td><td>1.6</td><td>1.36 元</td></tr>
+          <tr><td>B 层</td><td>564</td><td>54.2 天</td><td>1.0</td><td>0.85 元</td></tr>
+          <tr><td>C 层</td><td>186</td><td>78.9 天</td><td>0.4</td><td>0.34 元</td></tr>
+        </tbody>
+      </table>
+      <p>这不是说 S 层不该做。周转 21 天的货占用库容少、违约风险低，问题是把它当成普遍目标就错了。B 层的周转 54 天，看起来慢，但批次成本只有 S 层的三成，且货值占用按月息折算后仍低于前者多出来的装卸支出。</p>
+
+      <h3>判断二：C 层的库容占用被估算错了</h3>
+      <p>10 月 27 日发的分层表 v3.2 首次加入库容列。C 层 186 个 SKU 占 <b>38% 的货位面积</b>，出库单量只占 <b>6.1%</b>。此前按件数占比（约 10%）判断，管理层一直觉得 C 层不算问题。换成面积口径后，C 区的堆存高度是 4 层货架，A 区是 2 层，同一块地面装的件数不一样。</p>
+      <ul>
+        <li>按件数占比：C 层 = 186 / 1,860 = 10.0%</li>
+        <li>按货位面积占比：C 层 = 38%（分层表 v3.2 库容列）</li>
+        <li>按出库单量占比：C 层 = 6.1%（10 月出库 2,214 单 / 全仓 36,290 单）</li>
+      </ul>
+      <p>三个口径差到四倍，说明什么在哪个仓都能查到：件数统计会系统性地低估大件、慢销品的实际占用。厚街 J-02 仓 10 月 20 日用同样口径复算，C 层面积占比 31%，比 J-01 低 7 个百分点，原因是 J-02 的 C 区货架只有 3 层。</p>
+
+      <h3>判断三：退货入池比例取决于检验人手，不取决于规则</h3>
+      <p>9 月退货 48 条里，外观无损的 15 条在 J-01 仓全部回到可售区，J-02 仓只回了 9 条，J-03 仓回了 6 条。三仓规则文本一致，差别在二次质检的人手：J-01 仓有 2 名专职检验，J-02 仓 1 名，J-03 仓由拣货组兼任。9 月最后一周 J-03 仓退货积压 11 条，等待签章超过 3 天。</p>
+      <div class="callout">可核对的判断拆法：把「退货回池率」拆成三个可查数——退货总数、外观无损数、完成二次质检签章数。前两个数来自退货单，第三个数来自质检台账，两者跨表比对即可复现，不依赖任何主观评价。</div>
+
+      <h3>判断四：夜车加班的收益集中在周三这一班</h3>
+      <p>J-03 仓 10 月起周三加开夜车，10 月 7 日、14 日、21 日、28 日四班共发出 1,236 件，占当月该仓出库总量的 8.9%。同期周日出库量下降 4.2%，因为部分订单被提前到周三截单。调度组内部对这条线路是否值得保留存在分歧，目前只排到 11 月底。</p>
+      <div class="verdict">事实：周三夜车四班发出 1,236 件，占月出库 8.9%。回应：调度组称周五班次仍在观察。转述：仓内拣货组反馈夜班人手抽调影响次日早班效率，此说法尚无工时数据支撑。推测：若 11 月周五班次维持，周三班可能缩为单周一次——目前无排班文件佐证。</div>
+
+      <h3>判断五：标签磨损是退货主因，但可预防</h3>
+      <p>48 条退货明细里，标签磨损 <b>19 条</b>，占 39.6%，其中 13 条来自同一批次 B-04 货位的洗护用品。该批次 10 月 5 日入库，外箱标签贴在封口折角处，运输中摩擦即脱落。10 月 22 日 J-02 仓改用平面贴标，之后该品类退货中标签类问题降到 2 条。</p>
+      <p>这条能不能推广，取决于贴标工时。平面贴标每箱多 4.2 秒，按 10 月 J-02 仓入库 14,600 箱计算，约多 17 小时工时，折合两个半班次。仓方尚未在 J-01、J-03 铺开，理由是两条线当前月入库量更高。</p>
+    </section>
+
+    <!-- 6 体验指南 -->
+    <section class="sec" id="guide" aria-labelledby="h-guide">
+      <div class="sec-head">
+        <h2 id="h-guide">体验指南：第一次进现货仓跟单看什么</h2>
+        <span class="sub">六步，按实际动线排</span>
+      </div>
+      <ol class="steps">
+        <li><div><b>先看入库检验区的抽检记录本</b><span>翻最近三天的，看抽检比例与拦截条数。J-02 仓 10 月 3 日起比例为 20%，比 J-01 高一倍。</span></div></li>
+        <li><div><b>在货位区对照编码表走一遍拣货路径</b><span>J-01 仓 10 月 18 日拆成五区后，C 区到 D 区的转角少走 17 秒。路径表贴在通道口的蓝色夹板上。</span></div></li>
+        <li><div><b>到退货处理区问二次质检签章由谁签</b><span>专职检验和拣货组兼任，效率差三倍。9 月 J-03 仓积压 11 条就是兼职人手造成的。</span></div></li>
+        <li><div><b>看分拣台的截单倒计时牌</b><span>14:00 截单，18:20 前装车。超过 14:00 的订单进次日批次，牌上时间每天由调度组手动更新。</span></div></li>
+        <li><div><b>核对温控区记录仪打印件</b><span>2—8℃ 区域 62 个温控位，每小时打印一次。10 月 9 日扩容后有 3 个批次从临时货位迁入。</span></div></li>
+        <li><div><b>最后看一遍分层表与库容列</b><span>C 层面积占比与件数占比差四倍，只看件数会误判。分层表 v3.2 上库容列在最后一栏。</span></div></li>
+      </ol>
+    </section>
+
+    <!-- 7 周转榜单 + 对照 + 时间线 -->
+    <section class="sec" id="ranking" aria-labelledby="h-ranking">
+      <div class="sec-head">
+        <h2 id="h-ranking">滞销 SKU 清仓顺序榜</h2>
+        <span class="sub">按库容占用降序，取前 8 条</span>
+      </div>
+      <p class="sec-lead">排序依据是货位面积占用，不是件数。前四条都压在 C 区多层货架上，清一条能腾出的地面是普通 SKU 的两到四倍。</p>
+      <div class="rank">
+        <div class="row"><span class="no">1</span><span class="name"><b>C-21 洗护套装 500ml</b><span>最后出库 9月14日</span></span><span class="bar" aria-hidden="true"><i style="width:96%"></i></span><span class="val">占 4.1 货位 · 78 天</span></div>
+        <div class="row"><span class="no">2</span><span class="name"><b>D-08 厨房收纳架</b><span>最后出库 9月22日</span></span><span class="bar" aria-hidden="true"><i style="width:88%"></i></span><span class="val">占 3.7 货位 · 71 天</span></div>
+        <div class="row"><span class="no">3</span><span class="name"><b>B-04 洗衣凝珠 30 颗装</b><span>最后出库 10月2日</span></span><span class="bar" aria-hidden="true"><i style="width:81%"></i></span><span class="val">占 3.4 货位 · 66 天</span></div>
+        <div class="row"><span class="no">4</span><span class="name"><b>E-15 折叠收纳箱 60L</b><span>最后出库 10月9日</span></span><span class="bar" aria-hidden="true"><i style="width:73%"></i></span><span class="val">占 3.1 货位 · 63 天</span></div>
+        <div class="row"><span class="no">5</span><span class="name"><b>A-12 玻璃清洁剂</b><span>最后出库 10月16日</span></span><span class="bar" aria-hidden="true"><i style="width:61%"></i></span><span class="val">占 2.6 货位 · 61 天</span></div>
+        <div class="row"><span class="no">6</span><span class="name"><b>A-13 除螨喷雾</b><span>最后出库 10月20日</span></span><span class="bar" aria-hidden="true"><i style="width:52%"></i></span><span class="val">占 2.2 货位 · 60 天</span></div>
+        <div class="row"><span class="no">7</span><span class="name"><b>B-05 衣物柔顺剂 2L</b><span>最后出库 10月22日</span></span><span class="bar" aria-hidden="true"><i style="width:44%"></i></span><span class="val">占 1.9 货位 · 60 天</span></div>
+        <div class="row"><span class="no">8</span><span class="name"><b>C-21 洗手液补充装</b><span>最后出库 10月24日</span></span><span class="bar" aria-hidden="true"><i style="width:35%"></i></span><span class="val">占 1.5 货位 · 62 天</span></div>
+      </div>
+
+      <div class="compare">
+        <div class="panel a">
+          <h4>清仓优先：库容占用高</h4>
+          <ul>
+            <li>C-21 洗护套装：4.1 货位，78 天</li>
+            <li>D-08 厨房收纳架：3.7 货位</li>
+            <li>B-04 洗衣凝珠：3.4 货位</li>
+            <li>共同点：大件、多层堆放、货值中等</li>
+          </ul>
+        </div>
+        <div class="panel b">
+          <h4>缓清：件数多但占地面积小</h4>
+          <ul>
+            <li>A-12 玻璃清洁剂：2.6 货位</li>
+            <li>A-13 除螨喷雾：2.2 货位</li>
+            <li>B-05 衣物柔顺剂：1.9 货位</li>
+            <li>共同点：单价低、促销可带动</li>
+          </ul>
+        </div>
+      </div>
+
+      <ol class="timeline">
+        <li><span>10月27日</span><b>分层表 v3.2 发布</b>新增 12 个滞销标记，前 8 条中 5 条为本次标记。撤销 4 个误标，含一个已清空的旧编码。</li>
+        <li><span>10月31日</span><b>三仓周转数据封账</b>1,860 个 SKU 的周转天数全部出炉，C 层平均 78.9 天。</li>
+        <li><span>11月3日</span><b>清仓顺序提交仓务会</b>按货位面积排序的方案第一次被正式提交，尚无执行纪要。</li>
+      </ol>
+    </section>
+
+    <!-- 8 FAQ -->
+    <section class="sec" id="faq" aria-labelledby="h-faq">
+      <div class="sec-head">
+        <h2 id="h-faq">常见问题</h2>
+        <span class="sub">答案以仓内单据为准</span>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>库存周转天数怎么算才和三仓一致？</summary>
+          <div class="ans">取出库单签收日减入库单上架日，取中位数，剔除质检冻结超过 5 天的批次。J-01 仓 10 月平均 41.6 天即按此口径算出。若改用平均值，少数超长滞留批次会把结果抬高 6 到 8 天。</div>
+        </details>
+        <details>
+          <summary>SKU 分层 ABC 法在现货仓怎么落地？</summary>
+          <div class="ans">S 层 30 天内出清八成，A 层 45 天，B 层 60 天，C 层超过 60 天进滞销队列。三仓 1,860 个 SKU 按此分为 412、698、564、186 个。分层每月随入出库数据更新一次，不是一劳永逸的固定标签。</div>
+        </details>
+        <details>
+          <summary>退货二次质检由谁签章，影响多大？</summary>
+          <div class="ans">J-01 仓由 2 名专职检验签，J-02 仓 1 名，J-03 仓由拣货组兼任。9 月外观无损退货 15 条，回池数为 15、9、6。签名人手不同，同一规则下的回池率从 100% 降到 40%。</div>
+        </details>
+        <details>
+          <summary>现货仓和前置仓在周转上有什么区别？</summary>
+          <div class="ans">现货仓面积大、SKU 多、周转在 40 天上下；前置仓 SKU 少、面积小，周转通常压到 15 天以内，但补货批次更密。用同一套分层阈值去管前置仓，会把大部分 SKU 误判为滞销。</div>
+        </details>
+        <details>
+          <summary>入库抽检比例调高就一定更安全吗？</summary>
+          <div class="ans">J-02 仓 10 月 3 日把抽检从 10% 调到 20%，当月拦截 7 批次标签错印，比 9 月多 4 批。代价是卸车时长多 22 分钟，14:00 截单前的到货如果排在 13:00 以后，可能赶不上当日装车。</div>
+        </details>
+        <details>
+          <summary>货位编码调整后旧编码表还能用多久？</summary>
+          <div class="ans">J-01 仓 10 月 18 日拆成五区，旧编码表保留至 12 月 31 日。期间入库单上会同时印新旧两个编码，拣货以新编码为准，旧编码仅供对账追溯。</div>
+        </details>
+        <details>
+          <summary>温控区扩容后原来的临时货位怎么处理？</summary>
+          <div class="ans">J-02 仓温控区从 46 个位扩到 62 个位，原占临时货位的 3 个批次已迁入。临时货位不再分配，腾出的地面并入普通存储区，10 月 9 日设备验收记录里附有平面图。</div>
+        </details>
+        <details>
+          <summary>盘点差异怎么追溯？</summary>
+          <div class="ans">先比对入库单与上架记录，再看拣货扫描日志，最后核退货回池单。J-01 仓 10 月一笔 6 件的差异，最终定位到退货回池时未扫码，单据在质检台账尾页找得到，与出入库无关。</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- 9 用户评论 -->
+    <section class="sec" id="comments" aria-labelledby="h-comments">
+      <div class="sec-head">
+        <h2 id="h-comments">用户评论</h2>
+        <span class="sub">来自仓务会与跟单现场</span>
+      </div>
+      <div class="cmts">
+        <article class="cmt">
+          <header><span class="avatar">郑</span>郑师傅 · J-01 仓拣货组<span>10月29日</span></header>
+          <p>分成五区以后，C 区到 D 区那道门少走一趟，一个班能多拣十来单。就是编码表刚换，前三天老是看错。</p>
+          <span class="ref">指向：J-01 仓 10 月 18 日货位调整</span>
+        </article>
+        <article class="cmt">
+          <header><span class="avatar">林</span>林女士 · 日化品牌跟单<span>10月30日</span></header>
+          <p>洗衣凝珠那条 B-04 是我们家的货。标签贴在折角，运输一蹭就掉，退回来 13 条不算多。平面贴标多 4 秒我认，但别整批都算到供应商头上。</p>
+          <span class="ref">指向：B-04 洗衣凝珠 13 条退货</span>
+        </article>
+        <article class="cmt warn">
+          <header><span class="avatar">黄</span>黄工 · 调度组<span>11月1日</span></header>
+          <p>周三夜车到底划不划得来，看的是周五班次的数，现在只排到 11 月底，别急着下结论。1,236 件里有 400 多件本来周日能发，挪过来而已。</p>
+          <span class="ref">指向：J-03 仓周三夜车 8.9% 出库占比</span>
+        </article>
+        <article class="cmt">
+          <header><span class="avatar">吴</span>吴同学 · 物流管理专业<span>10月26日</span></header>
+          <p>分层表加了库容列这个做法挺实在。以前写作业只算件数占比，老师说 10% 不算问题，换了面积口径变成 38%，结论一下就反过来了。</p>
+          <span class="ref">指向：分层表 v3.2 库容列</span>
+        </article>
+        <article class="cmt">
+          <header><span class="avatar">陈</span>陈主管 · J-02 仓质检<span>10月24日</span></header>
+          <p>抽检调到 20% 以后卸车确实慢，22 分钟不是小数。7 批标签错印拦下了，但错印率其实降了，从 9 月的千分之四到十月的千分之二点六。</p>
+          <span class="ref">指向：J-02 仓 10 月 3 日抽检比例调整</span>
+        </article>
+        <article class="cmt">
+          <header><span class="avatar">赵</span>赵女士 · 零售采购<span>11月4日</span></header>
+          <p>清仓顺序那榜看着有道理，不过 C-21 洗护套装和洗手液补充装共一个货位编号，清的时候要分清是哪个，别一刀切。</p>
+          <span class="ref">指向：滞销榜第 1 与第 8 条同货位</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- 10 相关资讯 -->
+    <section class="sec" id="news" aria-labelledby="h-news">
+      <div class="sec-head">
+        <h2 id="h-news">相关资讯</h2>
+        <span class="sub">外部来源，含平台与账号</span>
+      </div>
+      <ul class="news-list">
+        <li><a href="/#deep">地方商务部门 10 月 15 日发布仓储设施抽样调查，华南六市常温仓空置率 11.3%</a><span>政府公告 · 10月15日</span></li>
+        <li><a href="/#updates">某电商平台物流账号 10 月 21 日说明截单时间规则：14:00 后订单顺延次日</a><span>平台公告 · 10月21日</span></li>
+        <li><a href="/#ranking">中国仓储与配送协会 10 月 28 日通报第三季度仓储服务质量抽查结果</a><span>行业协会 · 10月28日</span></li>
+        <li><a href="/#faq">货拉拉司机端 10 月 30 日更新华南线路运费参考价，佛山至深圳段上调 4.7%</a><span>平台定价页 · 10月30日</span></li>
+        <li><a href="/#guide">某质检机构 11 月 5 日发布洗护类标签附着力测试方法征求意见稿</a><span>机构公告 · 11月5日</span></li>
+      </ul>
+    </section>
+
+    <!-- 11 相关推荐 -->
+    <section class="sec" id="relate" aria-labelledby="h-relate">
+      <div class="sec-head">
+        <h2 id="h-relate">相关推荐</h2>
+        <span class="sub">按关键词检索频率排</span>
+      </div>
+      <div class="recs">
+        <a href="/#deep">库存周转天数怎么算</a>
+        <a href="/#ranking">现货仓滞销 SKU 清仓</a>
+        <a href="/#channels">ABC 分层阈值设置</a>
+        <a href="/#guide">入库抽检比例</a>
+        <a href="/#faq">退货二次质检流程</a>
+        <a href="/#comments">货位编码调整影响</a>
+        <a href="/#news">华南常温仓空置率</a>
+        <a href="/#channels">盘点差异追溯步骤</a>
+        <a href="/#updates">仓配截单时间</a>
+        <a href="/#deep">现货仓与前置仓区别</a>
+      </div>
+    </section>
+
+    <!-- 12 创作者证言（补充板块） = -->
+    <section class="sec" id="voices" aria-labelledby="h-voices">
+      <div class="sec-head">
+        <h2 id="h-voices">跟单者证言</h2>
+        <span class="sub">三仓各一段，删去过场话</span>
+      </div>
+      <div class="overview-grid">
+        <blockquote class="ov-card" style="margin:0">
+          <p>“10 月 3 日加严抽检是我签的字。7 批标签错印里，有 5 批是同一家印刷厂的活。卸车慢 22 分钟我认，但换个角度看，这批货要是流到门店，退回来就是 7 条客诉。”</p>
+          <p class="muted" style="margin-top:8px;font-size:13px">— J-02 仓质检陈主管，10 月 24 日</p>
+        </blockquote>
+        <blockquote class="ov-card" style="margin:0">
+          <p>“退货回池那 15 条，J-01 仓两天签完。J-03 仓 9 月最后一周压了 11 条没签，不是不想签，是拣货组下午都在赶 14:00 截单。人手不解决，规则写得再细也没用。”</p>
+          <p class="muted" style="margin-top:8px;font-size:13px">— J-01 仓检验员 10 月 31 日盘点记录附注</p>
+        </blockquote>
+      </div>
+    </section>
+
+  </div>
+
+  <aside class="side" aria-label="侧栏">
+    <div class="side-card">
+      <h3>栏目导航</h3>
+      <ul class="side-nav" id="sideNav">
+        <li><a href="/#overview">领域概览</a></li>
+        <li><a href="/#picks">精选内容推荐</a></li>
+        <li><a href="/#updates">最新更新</a></li>
+        <li><a href="/#channels">分类入口</a></li>
+        <li><a href="/#deep">深度解析</a></li>
+        <li><a href="/#guide">体验指南</a></li>
+        <li><a href="/#ranking">滞销清仓榜</a></li>
+        <li><a href="/#faq">常见问题</a></li>
+        <li><a href="/#comments">用户评论</a></li>
+        <li><a href="/#news">相关资讯</a></li>
+        <li><a href="/#relate">相关推荐</a></li>
+        <li><a href="/#voices">跟单者证言</a></li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h3>本周浏览较多</h3>
+      <ul class="side-list">
+        <li><a href="/#deep">周转天数与补货批次对照表</a><em>10月31日</em></li>
+        <li><a href="/#ranking">C 层 SKU 库容占用重算</a><em>10月27日</em></li>
+        <li><a href="/#comments">B-04 洗衣凝珠退货 13 条</a><em>11月2日</em></li>
+        <li><a href="/#updates">J-03 仓夜车双班安排</a><em>11月6日</em></li>
+        <li><a href="/#faq">退货二次质检签章人手</a><em>10月30日</em></li>
+      </ul>
+    </div>
+    <div class="side-card">
+      <h3>数据口径提示</h3>
+      <p class="side-data">三仓周转数据均截至 2026 年 10 月 31 日。分层表版本 v3.2，发布日 10 月 27 日。退货明细为 9 月批次，11 月 2 日补录。</p>
+    </div>
+    <div class="notice-mini">11 月 8 日更新：J-03 仓周五班次维持，周三班次排期至 11 月底，12 月排班未定。</div>
+  </aside>
+</div>
+</main>
+
+<footer class="footer" id="footer">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+            <rect width="64" height="64" rx="12" fill="#b8860b"/>
+            <path d="M14 22h36v7H14z" fill="#fff8e7"/>
+            <path d="M18 32h8v18h-8zM28 32h8v18h-8zM38 32h8v18h-8z" fill="#ffe9a8"/>
+          </svg>
+          <div><strong>黄仓库</strong><span>储与周转</span></div>
+        </div>
+        <p class="foot-pos">用入出库单据说话，把货位、批次、天数摆在一起看。</p>
+      </div>
+      <div class="foot-col">
+        <h4>观察栏目</h4>
+        <ul>
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#deep">库存周转解析</a></li>
+          <li><a href="/#ranking">滞销清仓榜</a></li>
+          <li><a href="/#guide">入库检验指南</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>数据与问答</h4>
+        <ul>
+          <li><a href="/#updates">最新更新</a></li>
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>延伸阅读</h4>
+        <ul>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#relate">相关推荐</a></li>
+          <li><a href="/#voices">跟单者证言</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p class="sample">站内 SKU、货位、批次与周转数据均为华南三仓示例数据，用于口径演示，不对应任何真实企业库存；外部资讯标注平台与日期，引用以原文为准。</p>
+      <p>© 2026 黄仓库 · 更新时间 2026-11-08</p>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到顶部">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+  var menuBtn=document.getElementById('menuBtn');
+  var mainNav=document.getElementById('mainNav');
+  if(menuBtn&&mainNav){
+    menuBtn.addEventListener('click',function(){
+      var open=mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    mainNav.addEventListener('click',function(e){
+      if(e.target.tagName==='A'&&window.innerWidth<=760){
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&mainNav.classList.contains('open')){
+        mainNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+        menuBtn.focus();
+      }
+    });
+  }
+
+  var searchInput=document.getElementById('siteSearch');
+  var feedback=document.getElementById('searchFeedback');
+  var index=[];
+  document.querySelectorAll('main h2, main h3, main summary, main .pick-card h3, main .news-list a, main .recs a').forEach(function(el){
+    var text=(el.textContent||'').replace(/\s+/g,' ').trim();
+    if(!text)return;
+    var target=el.closest('section')||el.closest('article');
+    var id=target&&target.id?target.id:'';
+    index.push({text:text,id:id});
+  });
+  function doSearch(){
+    if(!searchInput||!feedback)return;
+    var q=searchInput.value.trim();
+    if(!q){feedback.classList.remove('on');feedback.innerHTML='';return;}
+    var hits=index.filter(function(item){return item.text.toLowerCase().indexOf(q.toLowerCase())>-1;}).slice(0,6);
+    if(hits.length===0){
+      feedback.innerHTML='<b>没有找到匹配条目。</b><br>可以试试“周转天数”“B-04”“退货”或仓号 J-01、J-02、J-03。';
+    }else{
+      var html='<b>找到 '+hits.length+' 条：</b><ul>';
+      hits.forEach(function(h){
+        html+='<li><a href="/#'+(h.id||'main')+'">'+h.text+'</a></li>';
+      });
+      html+='</ul>';
+      feedback.innerHTML=html;
+    }
+    feedback.classList.add('on');
+    feedback.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){feedback.classList.remove('on');});
+    });
+  }
+  if(searchInput){
+    searchInput.addEventListener('input',doSearch);
+    searchInput.addEventListener('focus',function(){if(searchInput.value.trim())doSearch();});
+    document.addEventListener('click',function(e){
+      if(feedback&&!e.target.closest('.search-box'))feedback.classList.remove('on');
+    });
+  }
+
+  var toTop=document.getElementById('toTop');
+  if(toTop){
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>520){toTop.classList.add('on');}else{toTop.classList.remove('on');}
+    },{passive:true});
+    toTop.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+
+  var sideLinks=Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var sections=sideLinks.map(function(a){
+    var id=a.getAttribute('href').replace('/#','');
+    return document.getElementById(id);
+  }).filter(Boolean);
+  if('IntersectionObserver' in window && sections.length){
+    var observer=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var id=en.target.id;
+          sideLinks.forEach(function(a){
+            var on=a.getAttribute('href')==='/# '+id || a.getAttribute('href')==='/'+'#'+id;
+            a.classList.toggle('active',on);
+          });
+        }
+      });
+    },{rootMargin:'-120px 0px -65% 0px',threshold:0});
+    sections.forEach(function(s){observer.observe(s);});
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"黄仓库",
+  "description":"仓储选品、库存周转与仓配协同观察，整理华南三仓的SKU分层、退货处理与入库检验数据。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"库存周转天数怎么算才和三仓一致？","acceptedAnswer":{"@type":"Answer","text":"取出库单签收日减入库单上架日，取中位数，剔除质检冻结超过5天的批次。"}},
+    {"@type":"Question","name":"SKU分层ABC法在现货仓怎么落地？","acceptedAnswer":{"@type":"Answer","text":"S层30天内出清八成，A层45天，B层60天，C层超过60天进滞销队列；三仓1860个SKU按此分为412、698、564、186个。"}},
+    {"@type":"Question","name":"退货二次质检由谁签章，影响多大？","acceptedAnswer":{"@type":"Answer","text":"J-01仓由2名专职检验签章，J-02仓1名，J-03仓由拣货组兼任；9月外观无损退货15条，回池数为15、9、6。"}},
+    {"@type":"Question","name":"现货仓和前置仓在周转上有什么区别？","acceptedAnswer":{"@type":"Answer","text":"现货仓面积大、SKU多、周转在40天上下；前置仓SKU少，周转通常压到15天以内，但补货批次更密。"}},
+    {"@type":"Question","name":"入库抽检比例调高就一定更安全吗？","acceptedAnswer":{"@type":"Answer","text":"J-02仓10月3日把抽检从10%调到20%，当月拦截7批次标签错印，代价是卸车时长多22分钟。"}},
+    {"@type":"Question","name":"货位编码调整后旧编码表还能用多久？","acceptedAnswer":{"@type":"Answer","text":"J-01仓10月18日拆成五区，旧编码表保留至12月31日，入库单会同时印新旧两个编码。"}},
+    {"@type":"Question","name":"温控区扩容后原来的临时货位怎么处理？","acceptedAnswer":{"@type":"Answer","text":"J-02仓温控区从46个位扩到62个位，原占临时货位的3个批次已迁入，临时货位不再分配。"}},
+    {"@type":"Question","name":"盘点差异怎么追溯？","acceptedAnswer":{"@type":"Answer","text":"先比对入库单与上架记录，再看拣货扫描日志，最后核退货回池单。"}}
+  ]
+}
+</script>
+</body>
+  </html>
